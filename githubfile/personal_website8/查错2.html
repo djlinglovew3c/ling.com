@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{padding:0;margin:0;}
+li{list-style:none;opacity:0.3;}
+</style>
+<script>
+window.onload=function()
+{
+	var oUl=document.getElementById('ul');
+	var aLi=oUl.children;
+	var h=document.documentElement.clientHeight
+	for(var i=0;i<aLi.length;i++)
+	{
+		aLi[i].style.height=h+'px';
+	};
+	
+	var timer=null;
+	window.onscroll=function (){
+		
+		var ScrollTop=document.documentElement.scrollTop || document.body.scrollTop;
+		var ScrollTop2=0;
+		clearTimeout(timer2)
+		var timer2=setTimeout(function(){
+			
+			ScrollTop2=document.documentElement.scrollTop || document.body.scrollTop;
+			//alert('ScrollTop'+ScrollTop +' ScrollTop2'+ScrollTop2)
+		},100)//如果判断滚动条的位置是向下还是向上？
+		if(ScrollTop2>=ScrollTop)
+		{
+			var nCount=Math.ceil(ScrollTop/h);
+			document.title=nCount;
+		}
+		else
+		{
+			var nCount=Math.floor(ScrollTop/h);
+			document.title=nCount;
+		}
+		moveScroll(nCount*h,300)
+		
+	};
+	function moveScroll(target, time)
+	{
+		var start=document.documentElement.scrollTop || document.body.scrollTop;
+		
+		var dis=target-start;
+		var count=Math.floor(time/30);
+		var n=0;
+		
+		clearInterval(timer);
+		timer=setInterval(function (){
+			n++;	
+			var cur=start+dis*n/count;
+			// 先
+			document.body.scrollTop=cur;
+			document.documentElement.scrollTop=cur;
+			
+			if (n == count)
+			{
+				clearInterval(timer);
+			}
+		}, 30);
+	}
+};
+</script>
+</head>
+
+<body>
+<ul id="ul">
+<li style="background:#ccc;"></li>
+<li style="background:pink;"></li>
+<li style="background:blue;"></li>
+<li style="background:red;"></li>
+</ul>
+</body>
+</html>

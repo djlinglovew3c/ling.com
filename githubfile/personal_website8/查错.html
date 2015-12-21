@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+.skill_nav_con{width:100%;margin-top:20px;}
+
+.skill_nav_con li{float:left;position:relative;overflow:hidden;margin:30px 16px;}
+.skill_nav_con li span{position:absolute;left:0; top:-191px;width:100%; height:100%; background:#000; opacity:0.5;filter:alpha(opacity:50);z-index:9; }
+.js_skills_con{position:absolute;left:50%;top:50%;margin-left:-50px;font-size:18px;z-index:10;color:#fff;display:none;}
+.clock{width:240px;height:191px;background:#f6f1f6;}
+</style>
+<script src="js/base.js"></script>
+<script src="js/move.js"></script>
+<script src="js/tween.js"></script>
+<script>
+window.onload=function()
+{
+var oJscon=document.getElementById('j_skill_nav_con');
+	var aJscon=oJscon.children;
+	var oJsnavH=aJscon[0].offsetHeight;
+	var oJsnavW=aJscon[0].offsetWidth;
+	alert(oJsnavH)
+	alert(oJsnavW)
+	for (var i=0; i<aJscon.length; i++)
+	{
+		enter(aJscon[i]);
+		leave(aJscon[i]);
+	}
+	function getPos(obj)
+	{
+		var left=0;
+		var top=0;
+		
+		// obj=body
+		while (obj)
+		{
+			// left=0 body
+			left+=obj.offsetLeft;
+			top+=obj.offsetTop;
+			
+			// obj=null
+			obj=obj.offsetParent;
+		}
+		
+		return {left:left, top:top};
+	}
+	function enter(obj)
+	{
+		obj.onmouseenter=function (ev){
+			var oEvent=ev || event;
+			var n=getN(obj, oEvent);
+			var oSpan=obj.getElementsByTagName('span')[0];
+			var oDiv=getByClass(obj,'js_skills_con')[0];
+			oDiv.style.display='block';
+			switch (n)
+			{
+				case 0: // right
+					oSpan.style.left=oJsnavW+'px';
+					oSpan.style.top=0;
+					break;
+					
+				case 1: // bottom
+					oSpan.style.left=0;
+					oSpan.style.top=oJsnavH+'px';
+					break;
+				
+				case 2: // left
+					oSpan.style.left=-oJsnavW+'px';
+					oSpan.style.top=0;
+					break;
+					
+				case 3: // top
+					oSpan.style.left=0;
+					oSpan.style.top=-oJsnavH+'px';
+					break;
+			}
+			move(oSpan, {top:0, left:0},{duration:200});
+		};
+	}
+	
+	function leave(obj)
+	{
+		obj.onmouseleave=function (ev){
+			var oEvent=ev || event;
+			var n=getN(obj, oEvent);
+			var oSpan=obj.getElementsByTagName('span')[0];
+			var oDiv=getByClass(obj,'js_skills_con')[0];
+			oDiv.style.display='none';
+			switch (n)
+			{
+				case 0: // right
+					move(oSpan, {left:oJsnavW, top:0},{duration:200});
+					break;
+					
+				case 1: // bottom
+					move(oSpan, {top:oJsnavH, left:0},{duration:200});
+					break;
+				
+				case 2: // left
+					move(oSpan, {top:0, left:-oJsnavW},{duration:200});
+					break;
+					
+				case 3: // top
+					move(oSpan, {top:-oJsnavH, left:0},{duration:200});
+					break;
+			}
+		};
+	}
+	
+	function getN(obj, ev)
+	{
+		var x=getPos(obj)+obj.offsetWidth/2-ev.clientX;
+		var y=getPos(obj)-+obj.offsetHeight/2-ev.clientY;
+		
+		var n=Math.round((d2a(Math.atan2(y, x))+180)/90)%4;
+		return n;
+	}
+
+	function d2a(d)
+	{
+		return d*180/Math.PI;
+	}
+		
+}
+</script>
+</head>
+
+<body>
+	<ul class="skill_nav_con clearfix" id="j_skill_nav_con">
+		<li>
+			<img src="images/js_b1.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b2.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b3.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b4.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b5.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b6.jpg"/>
+			<div class="js_skills_con">
+				运动：照片墙！
+			</div>
+			
+			<span>
+			</span>
+		</li>
+		<li>
+			<img src="images/js_b5.jpg"/>
+			<div class="js_skills_con">
+				简单微博效果
+			</div>
+			
+			<span>
+			</span>
+		</li>
+		<li class="clock">
+			<div>
+				<p>2015年12月6日 22时：52分：32秒</p>
+			</div>
+			<div class="js_skills_con">
+				简单时钟
+			</div>
+			<span>
+			</span>
+		</li>
+	</ul>
+</body>
+</html>
